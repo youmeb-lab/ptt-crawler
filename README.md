@@ -7,6 +7,8 @@ ptt-crawler
 $ make pip install [package name]
 ```
 
+跟開發相關的 package 加到 `requirements-dev.txt`，其他加到 `requirements.txt`
+
 ## 執行 container 裡的 Python
 
 ```bash
