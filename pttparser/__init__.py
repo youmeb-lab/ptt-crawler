@@ -1,4 +1,5 @@
 # coding: utf-8
 
-__version__ = '0.0.0'
-__homepage__ = 'https://github.com/youmeb-lab/ptt-crawler'
+from .article import parse as parse_article
+
+__all__ = (parse_article)
