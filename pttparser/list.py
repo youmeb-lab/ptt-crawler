@@ -1,5 +1,3 @@
-
-
 from bs4 import BeautifulSoup
 
 __all__ = ("parse")
