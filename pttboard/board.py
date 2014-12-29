@@ -1,20 +1,17 @@
-import re
 import requests
 from .routes import routes
 
 BASE_URL = "https://www.ptt.cc"
-OVER18_URL = "https://www.ptt.cc/ask/over18?from={from_url}"
 URL_FORMAT = "/bbs/{board}/index.html"
 REQUEST_FAILED_MESSAGE = "HTTP request failed! {url}"
 NO_MORE_DATA_MESSAGE = "No more data!"
 UNKNOWN_PAGE_MESSAGE = "Unknown page {url}"
-OVER18_RE = re.compile("over18-notice")
 
 
 class PttBoard:
     def __init__(self, name):
         self.name = name
-        self.cookies = {}
+        self.cookies = dict(over18="1")
         self.page_url = URL_FORMAT.format(board=name)
         self.at_last_page = False
         self.buffer = None
@@ -63,10 +60,6 @@ class PttBoard:
         parse = routes(url)
         r = requests.get(BASE_URL + url, cookies=self.cookies)
 
-        if self.is_over18_page(r.text):
-            self.over18(url)
-            return self.get_data(url)
-
         if parse is None:
             raise Exception(UNKNOWN_PAGE_MESSAGE.format(url=url))
 
@@ -74,12 +67,3 @@ class PttBoard:
             raise Exception(REQUEST_FAILED_MESSAGE.format(url=url))
 
         return parse(r.text)
-
-    def is_over18_page(self, body):
-        return OVER18_RE.search(body)
-
-    def over18(self, from_url):
-        data = {"yes": "yes"}
-        r = requests.post(OVER18_URL.format(from_url=from_url),
-                          data=data, cookies=self.cookies)
-        self.cookies = r.cookies
