@@ -8,7 +8,7 @@ NO_MORE_DATA_MESSAGE = "No more data!"
 UNKNOWN_PAGE_MESSAGE = "Unknown page {url}"
 
 
-class PTTBoard:
+class Board:
     def __init__(self, name):
         self.name = name
         self.cookies = dict(over18="1")
