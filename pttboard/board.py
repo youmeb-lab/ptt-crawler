@@ -30,10 +30,10 @@ class PTTBoard:
             if self.at_last_page:
                 raise StopIteration
 
-        article = self.buffer[self.buffer_cursor]
+        article_url = self.buffer[self.buffer_cursor]
         self.buffer_cursor += 1
 
-        return article
+        return self.get_data(article_url)
 
     def next_page(self):
         if self.at_last_page:
