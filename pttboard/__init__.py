@@ -1,3 +1,3 @@
-from .board import PttBoard
+from .board import PTTBoard
 
-__all__ = (PttBoard)
+__all__ = (PTTBoard)
