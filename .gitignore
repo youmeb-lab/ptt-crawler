@@ -1,2 +1,3 @@
 python_modules
 __pycache__
+*.pyc
