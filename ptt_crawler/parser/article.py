@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
     處理文章頁面資料
 """
@@ -9,10 +11,10 @@ from bs4 import BeautifulSoup
 __all__ = ("parse")
 
 META_NAMES = {
-    "作者": "author",
-    "看板": "board",
-    "標題": "title",
-    "時間": "time",
+    u"作者": "author",
+    u"看板": "board",
+    u"標題": "title",
+    u"時間": "time",
 }
 
 

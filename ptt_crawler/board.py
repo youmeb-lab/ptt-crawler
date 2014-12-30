@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 from .parser import routes
 
@@ -9,8 +11,9 @@ UNKNOWN_PAGE_MESSAGE = "Unknown page {url}"
 
 
 class Board:
-    def __init__(self, name):
+    def __init__(self, name, verify=True):
         self.name = name
+        self.verify = verify
         self.cookies = dict(over18="1")
         self.page_url = URL_FORMAT.format(board=name)
         self.at_last_page = False
@@ -22,6 +25,9 @@ class Board:
         return self
 
     def __next__(self):
+        return self.next_article()
+
+    def next(self):
         return self.next_article()
 
     def next_article(self):
@@ -58,7 +64,9 @@ class Board:
 
     def get_data(self, url):
         parse = routes(url)
-        r = requests.get(BASE_URL + url, cookies=self.cookies)
+        r = requests.get(BASE_URL + url,
+                         verify=self.verify,
+                         cookies=self.cookies)
 
         if parse is None:
             raise Exception(UNKNOWN_PAGE_MESSAGE.format(url=url))
