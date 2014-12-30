@@ -1,4 +1,3 @@
-from .list import parse as parse_list
-from .article import parse as parse_article
+# flake8: noqa
 
-__all__ = (parse_list, parse_article)
+from .routes import routes

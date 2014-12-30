@@ -1,5 +1,4 @@
 # flake8: noqa
-from .board import *
-from .parser import *
+from .board import Board
 
 __version__ = "0.0.0"

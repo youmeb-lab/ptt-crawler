@@ -1,5 +1,5 @@
 import requests
-from .routes import routes
+from .parser import routes
 
 BASE_URL = "https://www.ptt.cc"
 URL_FORMAT = "/bbs/{board}/index.html"
@@ -16,7 +16,7 @@ class Board:
         self.at_last_page = False
         self.buffer = None
         self.buffer_cursor = 0
-        self.buffer_lastindex = 0
+        self.buffer_lastindex = -1
 
     def __iter__(self):
         return self
@@ -54,7 +54,7 @@ class Board:
         self.page_url = data["prev_page_url"]
 
     def buffer_is_empty(self):
-        return self.buffer_cursor >= self.buffer_lastindex
+        return self.buffer_cursor > self.buffer_lastindex
 
     def get_data(self, url):
         parse = routes(url)
