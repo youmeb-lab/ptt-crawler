@@ -15,11 +15,7 @@ class Board:
         self.name = name
         self.verify = verify
         self.cookies = dict(over18="1")
-        self.page_url = URL_FORMAT.format(board=name)
-        self.at_last_page = False
-        self.buffer = None
-        self.buffer_cursor = 0
-        self.buffer_lastindex = -1
+        self.reset()
 
     def __iter__(self):
         return self
@@ -75,3 +71,10 @@ class Board:
             raise Exception(REQUEST_FAILED_MESSAGE.format(url=url))
 
         return parse(r.text)
+
+    def reset(self):
+        self.page_url = URL_FORMAT.format(board=self.name)
+        self.at_last_page = False
+        self.buffer = None
+        self.buffer_cursor = 0
+        self.buffer_lastindex = -1
