@@ -1,10 +1,35 @@
 ptt-crawler
 ===========
 
-## 使用
+Python 版本: `2.6`, `2.7`, `3.x`
 
-```bash
-$ make init
+```python
+from ptt_crawler import Board
+
+board = Board("Gossiping")
+
+for article in board:
+    print(article["meta"]["title"])
+```
+
+## API
+
+### `Board`
+
+#### `#get_data(path)`
+
+使用網頁位置取得頁面資料，`ptt-crawler` 會從 `path` 來判斷該如何解析頁面，像是 `/bbs/mobile-game/index.html` 會回傳文章列表，`/bbs/mobile-game/M.1419858662.A.F95.html` 會回傳單一文章資料。
+
+#### `#reset()`
+
+重設 iterator
+
+## SSL
+
+發 Request 的時候有可能會出錯，這是後可以用 `verify` 這個參數來忽略 SSL 驗證
+
+```python
+board = Board("Gossiping", verify=False)
 ```
 
 ## 開發
