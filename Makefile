@@ -22,3 +22,11 @@ command:
 
 lint:
 	@flake8 pttparser
+
+release:
+	python setup.py register
+	python setup.py bdist_egg upload
+	python setup.py bdist_wininst upload
+	python setup.py sdist upload
+
+.PHONY: build
