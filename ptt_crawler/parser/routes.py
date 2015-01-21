@@ -5,7 +5,7 @@ import re
 from .list import parse as parse_list
 from .article import parse as parse_article
 
-ARTICLE_RE = re.compile("\/bbs\/\w+\/\w+\.\d+.\w+\.\w+\.html$")
+ARTICLE_RE = re.compile("\/bbs\/[-_\w]+\/(?:\w+\.){4}html$")
 LIST_RE = re.compile("\/index\d*\.html$")
 
 

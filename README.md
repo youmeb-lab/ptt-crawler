@@ -6,9 +6,9 @@ Python 版本: `2.6`, `2.7`, `3.x`
 ```python
 from ptt_crawler import Board
 
-board = Board("Gossiping")
+board = Board("mobile-game", verify=False)
 
-for article in board:
+for article in board.articles(content=True):
     print(article["meta"]["title"])
 ```
 
