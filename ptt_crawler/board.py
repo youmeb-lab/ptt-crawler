@@ -20,8 +20,8 @@ class Board:
         self.verify = verify
         self.cookies = dict(over18="1")
 
-    def articles(self, content=False):
-        return ArticleList(self, content)
+    def articles(self):
+        return ArticleList(self)
 
     def get_data(self, url):
         url = self.get_url(url)

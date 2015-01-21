@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from .article import Article
+
 NO_MORE_DATA_MESSAGE = "No more data!"
 
 
 class ArticleList:
-    def __init__(self, board, content=False):
-        self.content = content
+    def __init__(self, board):
         self.board = board
         self.reset()
 
@@ -27,10 +28,7 @@ class ArticleList:
         article_url = self.buffer[self.buffer_cursor]
         self.buffer_cursor += 1
 
-        if self.content:
-            return self.board.get_data(article_url)
-
-        return article_url
+        return Article(article_url, self.board)
 
     def next_page(self):
         if self.at_last_page:
