@@ -10,6 +10,9 @@ from bs4 import BeautifulSoup
 
 __all__ = ("parse")
 
+IS_REPLY = re.compile("^\s*RE:")
+PARSE_TITLE = re.compile("(?:\[(.*?)\])?\s*(.*)$")
+
 META_NAMES = {
     u"作者": "author",
     u"看板": "board",
@@ -52,11 +55,12 @@ def parse_meta(node, context):
         meta[key] = val
 
         if key is "title":
-            match = re.match("(?:\[(.*?)\])?\s*(.*)$", meta["title"])
+            match = PARSE_TITLE.match(meta["title"])
             article_type = match.group(1)
             title = match.group(2)
             meta["type"] = article_type
             meta["title"] = title
+            meta["re"] = True if IS_REPLY.search(title) else False
 
         context["meta"] = meta
 
@@ -76,7 +80,7 @@ def parse_comment(node, context):
                 "tag": tag[0].text.strip(),
                 "user": user[0].text.strip(),
                 "time": time[0].text.strip(),
-                "content": content[0].text.strip(),
+                "content": get_comment_content(content[0]),
             })
             context["comments"] = comments
 
@@ -85,6 +89,15 @@ def parse_comment(node, context):
 
 def parse_content(node, context):
     context["content"] = context.get("content", "") + get_text(node)
+
+
+def get_comment_content(comment_root):
+    content = ""
+
+    for node in comment_root.contents:
+        content += get_text(node)
+
+    return content.strip()
 
 
 def get_text(node):
