@@ -26,7 +26,7 @@ def parse(html):
     for node in main.contents:
         parse_node(node, data)
 
-    main["content"] = main.get("content", "").strip()
+    data["content"] = data.get("content", "").strip()
 
     return data
 
