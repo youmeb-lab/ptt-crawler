@@ -1,2 +1,3 @@
 requests==2.5.1
+python-dateutil
 beautifulsoup4
