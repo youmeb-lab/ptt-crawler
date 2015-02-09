@@ -15,7 +15,7 @@ PATH_WITH_BOARD_NAME = re.compile("^\/bbs\/(?:.+)\/")
 
 
 class Board:
-    def __init__(self, name, verify=True):
+    def __init__(self, name="undefined", verify=True):
         self.name = name
         self.verify = verify
         self.cookies = dict(over18="1")
@@ -38,7 +38,8 @@ class Board:
                 continue
 
             if r.status_code is not 200:
-                msg = REQUEST_FAILED_MESSAGE.format(url=url, status=r.status_code)
+                msg = REQUEST_FAILED_MESSAGE\
+                    .format(url=url, status=r.status_code)
                 raise Exception(msg)
 
             break
